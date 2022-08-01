@@ -46,21 +46,29 @@ class _HomeScreenState extends State<HomeScreen> {
                 return CarouselSlider.builder(
                   itemCount: value.MoviesList.length,
                   itemBuilder: (BuildContext context, int index, int realIndex) {
-                    return GridTile(
-                        child: Image.network(
-                          IMAGE_URL + value.MoviesList[index].poster_path,
-                          fit: BoxFit.fill,
-                        ),
-                        footer: Container(
-                          alignment: Alignment.center,
-                          child: Text(
-                            "${value.MoviesList[index].title}",
-                            textAlign: TextAlign.center,
-                            style: TextStyle(
-                                fontWeight: FontWeight.bold, color: Colors.black),
+                    return GestureDetector(
+                      onTap: () {
+                        Navigator.push(context, MaterialPageRoute(
+                            builder: (BuildContext context) {
+                              return DetailsScreen(value.MoviesList[index]);
+                            }));
+                      },
+                      child: GridTile(
+                          child: Image.network(
+                            IMAGE_URL + value.MoviesList[index].poster_path,
+                            fit: BoxFit.fill,
                           ),
-                          color: Colors.red.withOpacity(0.7),
-                        ));
+                          footer: Container(
+                            alignment: Alignment.center,
+                            child: Text(
+                              "${value.MoviesList[index].title}",
+                              textAlign: TextAlign.center,
+                              style: TextStyle(
+                                  fontWeight: FontWeight.bold, color: Colors.black),
+                            ),
+                            color: Colors.red.withOpacity(0.7),
+                          )),
+                    );
                   },
                   options: CarouselOptions(
                     height: MediaQuery.of(context).size.height / 3,
